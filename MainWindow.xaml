@@ -1,0 +1,45 @@
+﻿<Window x:Class="NowPlaying.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                
+        mc:Ignorable="d"
+        Title="NowPlaying" Height="600" Width="800" ResizeMode="CanMinimize">
+    <Grid Background="#FF263238">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="25" Margin="5,5,5,5" Style="{StaticResource BackgroundMain}" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Button Width="140" Style="{StaticResource ButtonStart}" Margin="5" Grid.Column="1">Start</Button>
+                <Button Width="140" Style="{StaticResource ButtonStop}" Margin="5" Grid.Column="2">Stop</Button>
+
+                <Border Style="{StaticResource BackgroundSecondaryLight}" CornerRadius="20" Margin="7.5,5,5,5" Grid.Column="0">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="White" FontWeight="SemiBold" Padding="5,0,0,0">Offline</Label>
+                </Border>
+            </Grid>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="0" CornerRadius="20" Margin="5,5,5,5" Style="{StaticResource BackgroundMain}">
+            <StackPanel>
+                <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Home"/>
+                <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Spotify Settings"/>
+                <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Server Settings"/>
+                <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Style Settings"/>
+                <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Custom Styles"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" CornerRadius="25" Margin="5,5,5,5" Style="{StaticResource BackgroundMain}">
+        </Border>
+    </Grid>
+</Window>
