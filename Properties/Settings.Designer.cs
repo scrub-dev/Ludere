@@ -22,5 +22,14 @@ namespace NowPlaying.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/scrub-dev/SpotifyNowPlaying")]
+        public string HelpURI {
+            get {
+                return ((string)(this["HelpURI"]));
+            }
+        }
     }
 }

@@ -37,19 +37,22 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Home"/>
-                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Spotify Settings"/>
-                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Server Settings"/>
-                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Style Settings"/>
-                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Custom Styles"/>
+                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Home" x:Name="BtnNavigate_Home" Click="BtnNav_Click"/>
+                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Spotify Settings" x:Name="BtnNavigate_SpotifySettings" Click="BtnNav_Click"/>
+                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Server Settings" x:Name="BtnNavigate_ServerSettings" Click="BtnNav_Click"/>
+                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Style Settings" x:Name="BtnNavigate_StyleSettings" Click="BtnNav_Click"/>
+                    <Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Custom Styles" x:Name="BtnNavigate_CustomStyle" Click="BtnNav_Click"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-                    <Button  Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Help"/>
+                    <Button  Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Help" Click="BtnHelp_Click"/>
                 </StackPanel>
             </Grid>
 
         </Border>
         <Border Grid.Column="1" Grid.Row="0" CornerRadius="25" Margin="5,5,5,5" Style="{StaticResource BackgroundMain}">
+            <DockPanel>
+                <Frame x:Name="FrameMain" NavigationUIVisibility="Hidden" Panel.ZIndex="1"/>
+            </DockPanel>
         </Border>
     </Grid>
 </Window>
