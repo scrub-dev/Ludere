@@ -31,5 +31,14 @@ namespace NowPlaying.Properties {
                 return ((string)(this["HelpURI"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8080")]
+        public int ServerHostPort {
+            get {
+                return ((int)(this["ServerHostPort"]));
+            }
+        }
     }
 }

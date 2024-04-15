@@ -5,5 +5,8 @@
     <Setting Name="HelpURI" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://github.com/scrub-dev/SpotifyNowPlaying</Value>
     </Setting>
+    <Setting Name="ServerHostPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8080</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
