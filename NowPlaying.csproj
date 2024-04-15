@@ -10,6 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Poppins-ExtraLight.ttf" />
+    <None Remove="Fonts\Poppins-Light.ttf" />
+    <None Remove="Fonts\Poppins-Regular.ttf" />
+    <None Remove="Fonts\Poppins-Thin.ttf" />
+    <None Remove="Images\cross.png" />
+    <None Remove="Images\minimise.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -27,6 +36,16 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Poppins-ExtraLight.ttf" />
+    <Resource Include="Fonts\Poppins-Light.ttf" />
+    <Resource Include="Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Fonts\Poppins-Thin.ttf" />
+    <Resource Include="Images\cross.png" />
+    <Resource Include="Images\minimise.png" />
   </ItemGroup>
 
 </Project>
