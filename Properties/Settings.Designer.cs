@@ -40,5 +40,17 @@ namespace NowPlaying.Properties {
                 return ((int)(this["ServerHostPort"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int ServerResendInterval {
+            get {
+                return ((int)(this["ServerResendInterval"]));
+            }
+            set {
+                this["ServerResendInterval"] = value;
+            }
+        }
     }
 }

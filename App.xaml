@@ -6,6 +6,7 @@
         <ResourceDictionary>
 
             <Style TargetType="{x:Type Button}" x:Key="RemoveDefaultBehaviourButton">
+                <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -96,6 +97,23 @@
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="ButtonHelp" TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+                <Setter Property="Border.CornerRadius" Value="20"/>
+                <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
+                <Setter Property="Foreground" Value="#fff"/>
+                <Setter Property="Background" Value="#FF3AB8FF"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="#FF0099C1"/>
+                        <Setter Property="Background" Value="#FF0099C1"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="BorderBrush" Value="#FF46BED2"/>
+                        <Setter Property="Background" Value="#FF46BED2"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="BackgroundMain" TargetType="{x:Type Border}">
                 <Setter Property="Background" Value="#FF202030"/>
             </Style>
@@ -128,7 +146,10 @@
                 </Style.Setters>
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" Value="#FF202030"/>
+                        <Setter Property="Background" Value="#FF202030"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF28283C"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
