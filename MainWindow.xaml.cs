@@ -60,13 +60,6 @@ namespace NowPlaying
             Type FrameToShow = GetFrame(((Button)sender).Name);
             SetFrameContent(FrameMain, FrameToShow);
         }
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            if (!sender.GetType().Equals(typeof(Button))) return;
-
-            Application.Current.Shutdown();
-        }
-
         private void BtnMinimise_Click(object sender, RoutedEventArgs e)
         {
             if (!sender.GetType().Equals(typeof(Button))) return;

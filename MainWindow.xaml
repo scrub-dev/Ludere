@@ -8,7 +8,11 @@
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        xmlns:vm="clr-namespace:NowPlaying.ViewModels">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Border Background="#FF202030" CornerRadius="15">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -33,7 +37,7 @@
                                 <Setter Property="Margin" Value="5"/>
                             </Style>
                         </StackPanel.Resources>
-                        <Button Width="30" BorderBrush="Transparent" Click="BtnClose_Click" Style="{StaticResource ButtonClose}">
+                        <Button Width="30" BorderBrush="Transparent" Command="{Binding CloseApplicationCommand}" Style="{StaticResource ButtonClose}">
                             <Button.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -65,7 +69,7 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Panel.ZIndex="1000">
-                        <Button Margin="10" Width="100" Content="Help" Click="BtnHelp_Click" Style="{StaticResource ButtonHelp}"/>
+                        <Button Margin="10" Width="100" Content="Help" Command="{Binding HelpButtonCommand}" Style="{StaticResource ButtonHelp}"/>
                     </Border>
                     <StackPanel Orientation="Horizontal" Grid.Column="2" FlowDirection="RightToLeft" >
                         <Button Width="100" Margin="10,10,10,10" Style="{StaticResource ButtonStart}">Start</Button>
@@ -73,7 +77,7 @@
                     </StackPanel>
                     <Border Style="{StaticResource BackgroundAccent}" Grid.Column="1">
                         <Border Style="{StaticResource BackgroundMain}" Margin="0,10,0,10" CornerRadius="10">
-                            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="White" Padding="5,0,0,0" FontFamily="Cascadia Code" FontWeight="Light">Offline</Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="White" Padding="5,0,0,0" FontFamily="Cascadia Code" FontWeight="Light" Content="{Binding CurrentState}"/>
                         </Border>
                     </Border>
                 </Grid>
