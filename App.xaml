@@ -4,6 +4,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Utility/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="{x:Type Button}" x:Key="RemoveDefaultBehaviourButton">
                 <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
@@ -122,17 +125,22 @@
             </Style>
 
 
+            <Style TargetType="{x:Type TextBlock}" x:Key="MenuText">
+                <Style.Setters>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="10,0,0,0"/>
+
+                </Style.Setters>
+            </Style>
             <Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="{x:Type RadioButton}" x:Key="MenuButton">
                 <Style.Setters>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="RadioButton">
                                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{TemplateBinding Background}">
-                                    <TextBlock Text="{TemplateBinding Property=Content}" 
-                                       VerticalAlignment="Center"
-                                       Margin="30,0,0,0"
-                                       FontSize="14"
-                                       />
+                                    <ContentControl Content="{TemplateBinding Content}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>

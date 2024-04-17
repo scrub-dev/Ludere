@@ -106,23 +106,42 @@
                         </TextBlock.TextDecorations>
                     </TextBlock>
                     <StackPanel Grid.Row="0" Margin="0,-90,0,0" VerticalAlignment="Center">
-                        <!--<Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Home" x:Name="BtnNavigate_Home" Click="BtnNav_Click"/>-->
-                        <!--<Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Spotify Settings" x:Name="BtnNavigate_SpotifySettings" Click="BtnNav_Click"/>-->
-                        <!--<Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Server Settings" x:Name="BtnNavigate_ServerSettings" Click="BtnNav_Click"/>-->
-                        <!--<Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Style Settings" x:Name="BtnNavigate_StyleSettings" Click="BtnNav_Click"/>-->
-                        <!--<Button Style="{StaticResource ButtonMain}" Height="40" Margin="5" Content="Custom Styles" x:Name="BtnNavigate_CustomStyle" Click="BtnNav_Click"/>-->
-                        <!--<Button Style="{StaticResource ButtonMain}"  Margin="10" Height="40" Content="Help" Click="BtnHelp_Click"/>-->
-                        <RadioButton Style="{StaticResource MenuButton}" Content="Home" IsChecked="True"/>
-                        <RadioButton Style="{StaticResource MenuButton}" Content="Spotify Settings"/>
-                        <RadioButton Style="{StaticResource MenuButton}" Content="Server Settings"/>
-                        <RadioButton Style="{StaticResource MenuButton}" Content="Style Settings"/>
-                        <RadioButton Style="{StaticResource MenuButton}" Content="Custom Styles"/>
+                        <RadioButton Style="{StaticResource MenuButton}" CommandParameter="home" Command="{Binding SetViewCommand}" IsChecked="True">
+                            <StackPanel Orientation="Horizontal" Margin="20,10,10,10">
+                                <Path Style="{StaticResource HomeIcon}" Fill="White" Height="20"/>
+                                <TextBlock Text="Home" Style="{StaticResource MenuText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{StaticResource MenuButton}" CommandParameter="spotify_settings" Command="{Binding SetViewCommand}">
+                            <StackPanel Orientation="Horizontal" Margin="20,10,10,10">
+                                <Path Style="{StaticResource SpotifyIcon}" Fill="White" Height="20"/>
+                                <TextBlock Text="Spotify Settings" Style="{StaticResource MenuText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{StaticResource MenuButton}" CommandParameter="server_settings" Command="{Binding SetViewCommand}">
+                            <StackPanel Orientation="Horizontal" Margin="20,10,10,10">
+                                <Path Style="{StaticResource PuzzleIcon}" Fill="White" Height="20"/>
+                                <TextBlock Text="Server Settings" Style="{StaticResource MenuText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{StaticResource MenuButton}" CommandParameter="style_settings" Command="{Binding SetViewCommand}">
+                            <StackPanel Orientation="Horizontal" Margin="20,10,10,10">
+                                <Path Style="{StaticResource StyleIcon}" Fill="White" Height="20"/>
+                                <TextBlock Text="Style Settings" Style="{StaticResource MenuText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{StaticResource MenuButton}" CommandParameter="custom_styles" Command="{Binding SetViewCommand}">
+                            <StackPanel Orientation="Horizontal" Margin="20,10,10,10">
+                                <Path Style="{StaticResource EditIcon}" Fill="White" Height="20"/>
+                                <TextBlock Text="Custom Styles" Style="{StaticResource MenuText}"/>
+                            </StackPanel>
+                        </RadioButton>
                     </StackPanel>
                 </Grid>
             </Border>
             <Border Grid.Column="1" Grid.Row="1" CornerRadius="15" Style="{StaticResource BackgroundMain}">
                 <DockPanel>
-                    <Frame x:Name="FrameMain" NavigationUIVisibility="Hidden" Panel.ZIndex="1"/>
+                    <ContentControl Content="{Binding CurrentView}" Panel.ZIndex="1"/>
                 </DockPanel>
             </Border>
         </Grid>
