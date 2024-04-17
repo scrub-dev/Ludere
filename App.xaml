@@ -21,7 +21,6 @@
                 </Setter>
             </Style>
 
-
             <Style TargetType="Button" x:Key="DefaultButton" BasedOn="{StaticResource RemoveDefaultBehaviourButton}">
                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
                 <Setter Property="Border.CornerRadius" Value="20" />
@@ -160,6 +159,15 @@
                         <Setter Property="Background" Value="#FF28283C"/>
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="PageTitle" TargetType="{x:Type TextBlock}">
+                <Style.Setters>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="32"/>
+                    <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
+                    <Setter Property="FontWeight" Value="Thin"/>
+                </Style.Setters>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

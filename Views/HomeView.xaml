@@ -7,7 +7,74 @@
              xmlns:i="clr-namespace:NowPlaying.Utility"
              mc:Ignorable="d" 
              d:DesignHeight="522" d:DesignWidth="736">
-    <Grid>
-        <Label Content="Home"/>
+    <Grid Margin="50, 70">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Viewbox HorizontalAlignment="Left" Width="79">
+                <Viewbox.OpacityMask>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FF763AFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Viewbox.OpacityMask>
+                <Path Style="{StaticResource MusicIcon}">
+                    <Path.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White"/>
+                            <GradientStop Color="#FF763AFF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+            </Viewbox>
+            <TextBlock 
+                Margin="20"  
+                VerticalAlignment="Center" 
+                Text="Ludere"
+                FontSize="60"
+                FontFamily="/Fonts/#Poppins"
+                FontWeight="UltraLight">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FF763AFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </StackPanel>
+        <GridSplitter Grid.Row="0" Grid.ColumnSpan="2" Width="Auto" Height="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+            <GridSplitter.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF763AFF" Offset="1"/>
+                </LinearGradientBrush>
+            </GridSplitter.Background>
+        </GridSplitter>
+        <StackPanel Grid.Row="1"
+                    Margin="0, 10">
+            <TextBlock 
+                Foreground="White"
+                FontWeight="Thin"
+                FontSize="20"
+                TextWrapping="Wrap"
+                Text="Welcome to Ludere, a Self-hosted solution to display what you are currently listening to." FontFamily="Poppins"/>
+            <TextBlock 
+                Margin="0,15"
+                Foreground="White"
+                FontWeight="Thin"
+                FontSize="20"
+                TextWrapping="Wrap"
+                Text="Visit the docs using the Help Button located in the bottom left to help you get started or to fix an issue you are experiencing." FontFamily="Poppins"/>
+        </StackPanel>
     </Grid>
 </UserControl>

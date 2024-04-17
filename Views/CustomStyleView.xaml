@@ -10,7 +10,11 @@
     <UserControl.DataContext>
         <vm:CustomStyleViewModel/>
     </UserControl.DataContext>
-    <Grid>
-        <Label Content="Custom Style"/>
+    <Grid Margin="50,30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Custom Style Settings" Style="{StaticResource PageTitle}"/>
     </Grid>
 </UserControl>
