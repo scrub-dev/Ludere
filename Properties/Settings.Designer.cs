@@ -44,12 +44,36 @@ namespace NowPlaying.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int ServerResendInterval {
+        public int ServerRefreshInterval {
             get {
-                return ((int)(this["ServerResendInterval"]));
+                return ((int)(this["ServerRefreshInterval"]));
             }
             set {
-                this["ServerResendInterval"] = value;
+                this["ServerRefreshInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyToken {
+            get {
+                return ((string)(this["SpotifyToken"]));
+            }
+            set {
+                this["SpotifyToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyMarket {
+            get {
+                return ((string)(this["SpotifyMarket"]));
+            }
+            set {
+                this["SpotifyMarket"] = value;
             }
         }
     }

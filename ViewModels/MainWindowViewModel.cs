@@ -1,4 +1,5 @@
 ﻿using NowPlaying.Core;
+using NowPlaying.Models;
 using NowPlaying.Utility;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,15 @@ namespace NowPlaying.ViewModels
 {
     internal class MainWindowViewModel : ObservableObject
     {
+        // View
+        private readonly MainWindowModel mainWindowModel = new();
 
         #region Private Values
         private UserControl? _currentView;
         private string? _currentState;
-        private readonly Dictionary<string, Type> _views = [];
         #endregion
 
         #region Public Values
-        public string CurrentState { get => (_currentState is not null) ? _currentState : "Offline"; set => _currentState = value; }
 
 
         public UserControl CurrentView { get => _currentView!; set{ _currentView = value; OnPropertyChanged();}}
@@ -30,16 +31,18 @@ namespace NowPlaying.ViewModels
         public RelayCommand? SetViewCommand { get; set; }
         public RelayCommand? CloseApplicationCommand { get; set; }
         public RelayCommand? HelpButtonCommand { get; set; }
+        #endregion
+
+
+        #region Server Bindings
+        public RelayCommand? StartServerCommand { get; set; }
+        public RelayCommand? StopServerCommand { get; set; }
+        public string CurrentState { get => (_currentState is not null) ? _currentState : "Offline"; set => _currentState = value; }
 
         #endregion
 
         public MainWindowViewModel ()
         {
-            _views.Add("home", typeof(Views.HomeView));
-            _views.Add("spotify_settings", typeof(Views.SpotifySettingsView));
-            _views.Add("server_settings", typeof(Views.ServerSettingsView));
-            _views.Add("style_settings", typeof(Views.StyleSettingsView));
-            _views.Add("custom_styles", typeof(Views.CustomStyleView));
 
             SetFrameContent("home");
 
@@ -47,21 +50,11 @@ namespace NowPlaying.ViewModels
             HelpButtonCommand = new((o) => Util.OpenUri(Properties.Settings.Default.HelpURI));
             SetViewCommand = new((o) => SetFrameContent((string)o));
 
-            bool test = Util.DoesPropertyExist("HelpURI");
-
         }
 
-        private void SetFrameContent(string frameLookupString) 
+        private void SetFrameContent (string newFrameName)
         {
-            Type viewType = GetViewType(frameLookupString);
-            UserControl FrameToNavigateTo = (UserControl)Activator.CreateInstance(viewType)! ?? new Views.HomeView();
-            CurrentView = FrameToNavigateTo;
-        }
-
-        private Type GetViewType(string s)
-        {
-            Type newType;
-            return _views.TryGetValue(s, out newType!) ? newType : _views.First().Value;
+            CurrentView = mainWindowModel.GetFrameContent(newFrameName);
         }
     }
 } 
