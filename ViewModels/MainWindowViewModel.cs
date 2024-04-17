@@ -47,6 +47,8 @@ namespace NowPlaying.ViewModels
             HelpButtonCommand = new((o) => Util.OpenUri(Properties.Settings.Default.HelpURI));
             SetViewCommand = new((o) => SetFrameContent((string)o));
 
+            bool test = Util.DoesPropertyExist("HelpURI");
+
         }
 
         private void SetFrameContent(string frameLookupString) 

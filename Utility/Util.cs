@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NowPlaying.Properties;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,7 +23,7 @@ namespace NowPlaying.Utility
         {
             if (!IsValidUri(uri))
                 return false;
-            System.Diagnostics.Process.Start(new ProcessStartInfo
+            Process.Start(new ProcessStartInfo
             {
                 FileName = uri,
                 UseShellExecute = true
@@ -30,5 +32,17 @@ namespace NowPlaying.Utility
             return true;
         }
 
+        //public static bool DoesPropertyExist (string propString) => Settings.Default.Context.ContainsKey(propString);
+        public static bool DoesPropertyExist(string propString) => Settings.Default[propString] is not null;
+        public string GetProperty(string propString) 
+        {
+            if (!DoesPropertyExist(propString)) throw new MissingFieldException();
+            return (string)Settings.Default[propString];
+        }
+        public void SetProperty(string propString, string newValue) 
+        {
+            if (!DoesPropertyExist(propString)) throw new MissingFieldException();
+            Settings.Default[propString] = newValue;
+        }
     }
 }
