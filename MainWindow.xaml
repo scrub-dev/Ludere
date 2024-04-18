@@ -73,7 +73,7 @@
                     </Border>
                     <StackPanel Orientation="Horizontal" Grid.Column="2" FlowDirection="RightToLeft" >
                         <Button Width="100" Margin="10,10,10,10" Style="{StaticResource ButtonStart}" Command="{Binding StartServerCommand}">Start</Button>
-                        <Button Width="100" Margin="0,10,0,10" Style="{StaticResource ButtonStop}" Command="{Binding StartServerCommand}">Stop</Button>
+                        <Button Width="100" Margin="0,10,0,10" Style="{StaticResource ButtonStop}" Command="{Binding StopServerCommand}">Stop</Button>
                     </StackPanel>
                     <Border Style="{StaticResource BackgroundAccent}" Grid.Column="1">
                         <Border Style="{StaticResource BackgroundMain}" Margin="0,10,0,10" CornerRadius="10">
