@@ -17,19 +17,11 @@ namespace NowPlaying
         public App()
         {
             _host = Host.CreateDefaultBuilder().ConfigureServices(services => {
-                services.AddSingleton<Server.Server>();
-                services.AddSingleton(s => new MainWindowViewModel()
-                {
-                    Server = s.GetRequiredService<Server.Server>()
-                });
+                services.AddSingleton<MainWindowViewModel>();
                 services.AddSingleton(s => new MainWindow()
                 {
                     DataContext = s.GetRequiredService<MainWindowViewModel>(),
-                });
-                // add singleton server
-                // add singleton main view model
-                // add singleton main view with datacontext main view model
-            
+                });            
             }).Build();
         }
 

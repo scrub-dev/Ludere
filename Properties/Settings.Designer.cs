@@ -32,18 +32,9 @@ namespace NowPlaying.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8080")]
-        public int ServerHostPort {
-            get {
-                return ((int)(this["ServerHostPort"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int ServerRefreshInterval {
             get {
                 return ((int)(this["ServerRefreshInterval"]));
@@ -74,6 +65,30 @@ namespace NowPlaying.Properties {
             }
             set {
                 this["SpotifyMarket"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SourcePort {
+            get {
+                return ((int)(this["SourcePort"]));
+            }
+            set {
+                this["SourcePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SocketPort {
+            get {
+                return ((int)(this["SocketPort"]));
+            }
+            set {
+                this["SocketPort"] = value;
             }
         }
     }

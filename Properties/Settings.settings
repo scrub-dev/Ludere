@@ -5,17 +5,20 @@
     <Setting Name="HelpURI" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://github.com/scrub-dev/SpotifyNowPlaying</Value>
     </Setting>
-    <Setting Name="ServerHostPort" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">8080</Value>
-    </Setting>
     <Setting Name="ServerRefreshInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="SpotifyToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SpotifyMarket" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SourcePort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SocketPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

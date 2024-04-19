@@ -34,15 +34,16 @@ namespace NowPlaying.Utility
 
         //public static bool DoesPropertyExist (string propString) => Settings.Default.Context.ContainsKey(propString);
         public static bool DoesPropertyExist(string propString) => Settings.Default[propString] is not null;
-        public string GetProperty(string propString) 
+        public static string GetProperty(string propString) 
         {
             if (!DoesPropertyExist(propString)) throw new MissingFieldException();
             return (string)Settings.Default[propString];
         }
-        public void SetProperty(string propString, string newValue) 
+        public static void SetProperty(string propString, string newValue) 
         {
             if (!DoesPropertyExist(propString)) throw new MissingFieldException();
             Settings.Default[propString] = newValue;
         }
+
     }
 }

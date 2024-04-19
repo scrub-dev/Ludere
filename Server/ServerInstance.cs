@@ -9,25 +9,31 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WebSocketSharp.Server;
 
 namespace NowPlaying.Server
 {
     class ServerInstance
     {
+        private Action<String>? _UpdateStateOutputFunc;
 
-        public static string pageDataBase =
-            "<!DOCTYPE>" +
-            "<html>" +
-            "  <head>" +
-            "    <title>Ludere</title>" +
-            "  </head>" +
-            "  <body>" +
-            "    <h1>Hello World</h1>" +
-            "  </body>" +
-            "</html>";
         private HttpListener? Server;
         private Thread? serverThread;
-        private volatile bool IsRunning;
+        private volatile bool IsServerRunning;
+
+        private Thread? webSocketThread;
+        private WebSocketServer?  WSServer;
+        private volatile bool IsWSRunning;
+        
+
+        public void SetStateOutputFunc(Action<string> UpdateStateOutputFunc)
+        {
+            _UpdateStateOutputFunc = UpdateStateOutputFunc;
+        }
+        private void SetStateOutput(string s)
+        {
+            _UpdateStateOutputFunc?.Invoke(s);
+        }
 
         private static HttpListener CreateServerListener(string prefix)
         {
@@ -38,68 +44,97 @@ namespace NowPlaying.Server
 
         public void Start()
         {
-            if (IsRunning) return;
-            serverThread = new Thread(new ThreadStart(RunServerConnectionAsync))
+            if (!IsServerRunning) 
             {
-                IsBackground = true
-            };
-            IsRunning = true;
-            serverThread.Start();
+                serverThread = new Thread(new ThreadStart(RunServerConnectionAsync))
+                {
+                    IsBackground = true
+                };
+                serverThread.Start();
+            }
+
+            if (!IsWSRunning) 
+            {
+                webSocketThread = new Thread(new ThreadStart(RunWebSocketServer))
+                {
+                    IsBackground = true
+                };
+                webSocketThread.Start();
+            }
+            SetStateOutput(NowPlaying.Server.Server.RUNNING);
         }
 
         public void Stop()
         {
-            IsRunning = false;
+            IsServerRunning = false;
             Server?.Stop();
+            Server = null;
+
+            IsWSRunning = false;
+            WSServer?.Stop();
+            WSServer = null;
+
+
+            SetStateOutput(NowPlaying.Server.Server.OFFLINE);
         }
 
-        private async void RunServerConnectionAsync()
+        private void RunServerConnectionAsync()
         {
+            if (IsServerRunning) return;
             string protocol = "http://";
             string host = "localhost";
             int port = 5000;
             Server = CreateServerListener($"{protocol}{host}:{port}/");
             Server.Start();
-            await HandleConnection();
-
+            IsServerRunning = true;
+            Server.BeginGetContext(Context, null);
         }
-
-        private async Task HandleConnection()
+        private void Context(IAsyncResult ar)
         {
-            while (IsRunning) 
-            {
-                Byte[] data;
-                HttpListenerContext ctx;
-                try
-                {
-                    if (Server == null) return;
-                    ctx = await Server.GetContextAsync();
-                }
-                catch (Exception)
-                {
-                    return;
-                }
+            if (Server == null) return;
+            HttpListenerContext ctx;
 
-                HttpListenerRequest req = ctx.Request;
-                HttpListenerResponse resp = ctx.Response;
-                if (req.Url!.AbsolutePath == "/favicon.ico") return;
-                
-                if (req.Url!.AbsolutePath == "/nowplaying")
-                {
-
-                }
-                else
-                {
-                    data = Encoding.UTF8.GetBytes(pageDataBase);
-                    resp.ContentType = "text/html";
-                    resp.ContentEncoding = Encoding.UTF8;
-                    resp.ContentLength64 = data.LongLength;
-                    await resp.OutputStream.WriteAsync(data, CancellationToken.None);
-                }
-
-                resp.Close();
+            try{ 
+                ctx = Server.EndGetContext(ar);
             }
+            catch (Exception) { return; }
+
+            Server.BeginGetContext(Context, null);
+
+            Byte[] data = Encoding.UTF8.GetBytes(ResponseBuilder.DEFAULT_CLIENT_PAGE);
+            ctx.Response.ContentType = "text/html";
+            ctx.Response.ContentEncoding = Encoding.UTF8;
+            ctx.Response.ContentLength64 = data.LongLength;
+
+            ctx.Response.OutputStream.WriteAsync(data, CancellationToken.None); 
+            ctx.Response.OutputStream.Close();
         }
+
+        #region Web Socket Stuff
+        private void RunWebSocketServer()
+        {
+            if (IsWSRunning) return;
+            WSServer = CreateWebSocketServer();
+            WSServer.Start();
+            IsWSRunning = true;
+            while (IsWSRunning)
+            {
+                int? sessionCount = WSServer?.WebSocketServices.SessionCount;
+                if (sessionCount != null && sessionCount > 0) SetStateOutput(NowPlaying.Server.Server.CLIENTS(sessionCount));
+                else SetStateOutput(NowPlaying.Server.Server.RUNNING);
+                
+                WSServer?.WebSocketServices.Broadcast("HelloWorld");
+                Thread.Sleep(Settings.Default.ServerRefreshInterval * 1000);
+            }
+            WSServer?.Stop();
+        }
+        private WebSocketServer CreateWebSocketServer()
+        {
+            WebSocketServer wssv = new(5001);
+            wssv.AddWebSocketService("/", () => new WSBehavior());
+            return wssv;
+        }
+        #endregion
     }
 }
 
