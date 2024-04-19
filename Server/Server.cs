@@ -16,7 +16,7 @@ namespace NowPlaying.Server
 
 
         public static string ERROR(string s) { return string.Format("ERROR: {0}", s); }
-        public static string CLIENTS(int? i) { return (i == 1) ? "" : string.Format("Sources Connected: {0}", i); }
+        public static string CLIENTS(int? i) { return (i == 1) ? "Source Connected" : string.Format("Sources Connected: {0}", i); }
 
         protected Action<string>? UpdateServerStateFunc;
         private readonly ServerInstance _serverInstance = new();
