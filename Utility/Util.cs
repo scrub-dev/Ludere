@@ -5,11 +5,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NowPlaying.Utility
 {
-    public class Util
+    public partial class Util
     {
         public static bool IsValidUri(string uri)
         {
@@ -45,5 +47,39 @@ namespace NowPlaying.Utility
             Settings.Default[propString] = newValue;
         }
 
+        public static void SaveProperties()
+        {
+            Settings.Default.Save();
+        }
+
+
+        public static void TimedSetErrorUI(string errorString, int TimedLength, Action<string> UpdateUIAction)
+        {
+            Thread t = new(new ThreadStart(() => {
+                SetErrorUI(errorString, UpdateUIAction);
+                Thread.Sleep(TimedLength);
+                SetErrorUI("", UpdateUIAction);
+            }));
+            t.Start();
+        }
+
+        public static void SetErrorUI(string errorString, Action<string> UpdateUIAction)
+        {
+            UpdateUIAction.Invoke(errorString);
+        }
+
+
+        public static void HandleRegexValidation(Regex r, object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = r.IsMatch(e.Text);
+        }
+        public static void HandleRegexValidationNumbersOnly(object sender, TextCompositionEventArgs e)
+        {
+            Regex r = NumbersOnlyRegex();
+            HandleRegexValidation(r, sender, e);
+        }
+
+        [GeneratedRegex("[^0-9]+")]
+        private static partial Regex NumbersOnlyRegex();
     }
 }
