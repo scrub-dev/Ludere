@@ -11,6 +11,11 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Style Settings" Style="{StaticResource PageTitle}"/>
+        <TextBlock Text="Style Settings" Style="{StaticResource PageTitle}" Grid.Row="0"/>
+        <WrapPanel Grid.Row="1" Margin="0,10,0,0">
+            <CheckBox Content="Song Progression"/>
+            <CheckBox Content="Artwork"/>
+            <CheckBox Content="Artist"/>
+        </WrapPanel>
     </Grid>
 </UserControl>
