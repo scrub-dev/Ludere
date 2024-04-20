@@ -46,7 +46,7 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int SourcePort {
             get {
                 return ((int)(this["SourcePort"]));
@@ -58,7 +58,7 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1001")]
         public int SocketPort {
             get {
                 return ((int)(this["SocketPort"]));
