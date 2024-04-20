@@ -46,30 +46,6 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SpotifyToken {
-            get {
-                return ((string)(this["SpotifyToken"]));
-            }
-            set {
-                this["SpotifyToken"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SpotifyMarket {
-            get {
-                return ((string)(this["SpotifyMarket"]));
-            }
-            set {
-                this["SpotifyMarket"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SourcePort {
             get {
@@ -89,6 +65,30 @@ namespace NowPlaying.Properties {
             }
             set {
                 this["SocketPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyClientID {
+            get {
+                return ((string)(this["SpotifyClientID"]));
+            }
+            set {
+                this["SpotifyClientID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyClientSecret {
+            get {
+                return ((string)(this["SpotifyClientSecret"]));
+            }
+            set {
+                this["SpotifyClientSecret"] = value;
             }
         }
     }

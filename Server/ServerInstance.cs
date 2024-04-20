@@ -15,7 +15,7 @@ namespace NowPlaying.Server
 {
     class ServerInstance
     {
-        private Action<String>? _UpdateStateOutputFunc;
+        private Action<string>? _UpdateStateOutputFunc;
 
         private HttpListener? Server;
         private Thread? serverThread;
@@ -24,6 +24,9 @@ namespace NowPlaying.Server
         private Thread? webSocketThread;
         private WebSocketServer?  WSServer;
         private volatile bool IsWSRunning;
+
+        private DateTime CurrentTokenValidUntil = new (DateTime.Now.AddMinutes(-1).Ticks);
+        private string? AccessToken;
         
 
         public void SetStateOutputFunc(Action<string> UpdateStateOutputFunc)
@@ -42,8 +45,32 @@ namespace NowPlaying.Server
             return server;
         }
 
+        private bool HandleAccessTokenRefresh()
+        {
+            if (DateTime.Now > CurrentTokenValidUntil || AccessToken == null)
+            {
+                string clientID = Settings.Default.SpotifyClientID;
+                string clientSecret = Settings.Default.SpotifyClientSecret;
+                (string? accessToken, DateTime? expiryTime, string? errorString) = CredentialManager.GetAccessToken(clientID, clientSecret);
+
+                if(accessToken == null)
+                {
+                    SetStateOutput(NowPlaying.Server.Server.ERROR(errorString!));
+                    return false;
+                }
+                else
+                {
+                    CurrentTokenValidUntil = (DateTime)expiryTime!;
+                    AccessToken = accessToken;
+                }
+            }
+            return true;
+        }
+
         public void Start()
         {
+            if (!HandleAccessTokenRefresh()) return;
+
             if (!IsServerRunning) 
             {
                 serverThread = new Thread(new ThreadStart(RunServerConnectionAsync))
@@ -61,9 +88,7 @@ namespace NowPlaying.Server
                 };
                 webSocketThread.Start();
             }
-            SetStateOutput(NowPlaying.Server.Server.RUNNING);
         }
-
         public void Stop()
         {
             IsServerRunning = false;
@@ -74,10 +99,8 @@ namespace NowPlaying.Server
             WSServer?.Stop();
             WSServer = null;
 
-
             SetStateOutput(NowPlaying.Server.Server.OFFLINE);
         }
-
         private void RunServerConnectionAsync()
         {
             if (IsServerRunning) return;
@@ -101,7 +124,7 @@ namespace NowPlaying.Server
 
             Server.BeginGetContext(Context, null);
 
-            Byte[] data = Encoding.UTF8.GetBytes(ResponseBuilder.DEFAULT_CLIENT_PAGE);
+            byte[] data = Encoding.UTF8.GetBytes(ResponseBuilder.DEFAULT_CLIENT_PAGE);
             ctx.Response.ContentType = "text/html";
             ctx.Response.ContentEncoding = Encoding.UTF8;
             ctx.Response.ContentLength64 = data.LongLength;
@@ -119,6 +142,8 @@ namespace NowPlaying.Server
             IsWSRunning = true;
             while (IsWSRunning)
             {
+                if(!HandleAccessTokenRefresh()) break;
+
                 int? sessionCount = WSServer?.WebSocketServices.SessionCount;
                 if (sessionCount != null && sessionCount > 0) SetStateOutput(NowPlaying.Server.Server.CLIENTS(sessionCount));
                 else SetStateOutput(NowPlaying.Server.Server.RUNNING);
@@ -137,5 +162,3 @@ namespace NowPlaying.Server
         #endregion
     }
 }
-
-
