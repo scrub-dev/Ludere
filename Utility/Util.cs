@@ -55,19 +55,25 @@ namespace NowPlaying.Utility
 
         public static void TimedSetErrorUI(string errorString, int TimedLength, Action<string> UpdateUIAction)
         {
+            TimedSetErrorUIWithSetAfter(errorString, TimedLength, UpdateUIAction, "");
+        }
+
+
+        public static void TimedSetErrorUIWithSetAfter(string errorString, int TimedLength, Action<string> UpdateUIAction, string setAfterString)
+        {
             Thread t = new(new ThreadStart(() => {
                 SetErrorUI(errorString, UpdateUIAction);
                 Thread.Sleep(TimedLength);
-                SetErrorUI("", UpdateUIAction);
+                SetErrorUI(setAfterString, UpdateUIAction);
             }));
             t.Start();
         }
+
 
         public static void SetErrorUI(string errorString, Action<string> UpdateUIAction)
         {
             UpdateUIAction.Invoke(errorString);
         }
-
 
         public static void HandleRegexValidation(Regex r, object sender, TextCompositionEventArgs e)
         {

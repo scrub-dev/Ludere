@@ -44,11 +44,11 @@ namespace NowPlaying.ViewModels
         {
             ArrayList ErrorList = [];
 
-            if (!PropertyValidator.IsRefreshIntervalValid(ServerRefreshInterval)) ErrorList.Add("Invalid Refresh Interval");
+            if (!PropertyValidator.IsRefreshIntervalValid(ServerRefreshInterval)) ErrorList.Add($"Invalid Refresh Interval (>{PropertyValidator.UPPER_REFRESH_INTERVAL_RANGE} or <{PropertyValidator.LOWER_REFRESH_INTERVAL_RANGE})");
             if (PropertyValidator.ArePortsSame(HostPort, UpdateServicePort)) ErrorList.Add("Host port and Update Service port must be different");
 
             if (!PropertyValidator.IsPortInValidRange(HostPort) 
-                || !PropertyValidator.IsPortInValidRange(UpdateServicePort)) ErrorList.Add("Ports must be >1000 or <65535");
+                || !PropertyValidator.IsPortInValidRange(UpdateServicePort)) ErrorList.Add($"Ports must be >{PropertyValidator.LOWER_PORT_RANGE} or <{PropertyValidator.UPPER_PORT_RANGE}");
 
             if (ErrorList.Count > 0) Util.SetErrorUI(string.Join(", ", ErrorList.ToArray()), (s) => ErrorText = s);
             else Util.SaveProperties();
