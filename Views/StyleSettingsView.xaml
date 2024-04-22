@@ -28,9 +28,20 @@
                 </StackPanel>
             </Grid>
             <WrapPanel Margin="0,10,0,0">
-                <CheckBox Content="Song Progression"/>
-                <CheckBox Content="Artwork"/>
-                <CheckBox Content="Artist"/>
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Margin" Value="0,0,10,0"/>
+                    </Style>
+                </WrapPanel.Resources>
+                <Border CornerRadius="15" Background="#FF2D2D50" Padding="10">
+                    <CheckBox Content="Song Progression" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                </Border>
+                <Border CornerRadius="15" Background="#FF2D2D50" Padding="10">
+                    <CheckBox Content="Artwork" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                </Border>
+                <Border CornerRadius="15" Background="#FF2D2D50" Padding="10">
+                    <CheckBox Content="Artist" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                </Border>
             </WrapPanel>
         </StackPanel>
 
