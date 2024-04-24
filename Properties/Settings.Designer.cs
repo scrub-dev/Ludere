@@ -115,5 +115,17 @@ namespace NowPlaying.Properties {
                 this["SpotifyRefreshToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EnabledFeatures {
+            get {
+                return ((int)(this["EnabledFeatures"]));
+            }
+            set {
+                this["EnabledFeatures"] = value;
+            }
+        }
     }
 }
