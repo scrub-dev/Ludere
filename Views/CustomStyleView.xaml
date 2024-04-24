@@ -16,5 +16,14 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Custom Style Settings" Style="{StaticResource PageTitle}"/>
+        <StackPanel Grid.Row="1">
+            <Border Background="#FF2D2D50" Padding="10" CornerRadius="20">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Border Background="#FF3C3C5B" Padding="10" CornerRadius="15">
+                        <CheckBox HorizontalAlignment="Center"  Content="Custom Style" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>
