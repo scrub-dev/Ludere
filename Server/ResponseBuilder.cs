@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NowPlaying.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,36 @@ namespace NowPlaying.Server
 {
     internal class ResponseBuilder
     {
-        public static string DEFAULT_CLIENT_PAGE =
+        private static string WebSocketScript()
+        {
+            string webSocketString = $"let ws = new WebSocket('ws://localhost:{Settings.Default.SocketPort}');\r\n";
+            string onErrorString   = "\r\n";
+            string onCloseString   = "ws.onclose = (e) => {setTimeout(connect, 5000)}\r\n";
+            string onMessageString = "ws.onmessage = (e) => {document.getElementById(\"Content\").innerHTML= e.data; console.log(e)} \r\n \r\n";
+            string onOpenString    = "ws.onopen = () => console.log('Connected')\r\n";
+            string output = "const connect = () => {"
+                + webSocketString
+                + onErrorString 
+                + onCloseString
+                + onMessageString
+                + onOpenString 
+                + "}\r\nconnect()";
+            return output;
+        }
+        public static string GenerateNowPlayingPage()
+        {
+            return ""
+                + "<!DOCTYPE>\r\n<html>"
+                + "<head>\r\n<title>Ludere</title>\r\n</head>"
+                + "<body>"
+                + $"<script>{WebSocketScript()}</script>"
+                + "<div id=\"Content\"></div>"
+                + "</body>"
+                + "</html>";
+
+        }
+    
+    public static string CALLBACK_PAGE =
 """ 
 <!DOCTYPE>
 <html>
@@ -17,16 +47,11 @@ namespace NowPlaying.Server
   </head>
   <body>
     <script>
-        const ws = new WebSocket('ws:localhost:5001')
-        ws.onopen = () => {
-            console.log("ws open")
-        }
-
-        ws.onmessage = (message) => {
-            console.log(message)
-        }
+        window.onload = (event) => {
+            window.close();
+        };
     </script>
-    <h1>Hello World</h1>
+    <h1>Callback</h1>
   </body>
 </html>
 """;

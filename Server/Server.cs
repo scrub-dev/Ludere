@@ -17,6 +17,8 @@ namespace NowPlaying.Server
         public static string CONNECTED = "Connected";
 
         public static string ERROR(string s) { return string.Format("ERROR: {0}", s); }
+        public static string CUSTOM(string s) { return string.Format("{0}", s); }
+
         public static string CLIENTS(int? i) { return (i == 1) ? "Source Connected" : string.Format("Sources Connected: {0}", i); }
 
         protected Action<string>? UpdateServerStateFunc;
@@ -61,7 +63,6 @@ namespace NowPlaying.Server
                 Util.TimedSetErrorUIWithSetAfter("Invalid Ports (Identical)", 3000, UpdateServerStateFunc!, "Offline");
                 return false;
             }
-
             return true;
         }
     }

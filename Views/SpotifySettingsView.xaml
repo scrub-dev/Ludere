@@ -27,7 +27,9 @@
             </StackPanel>
             <StackPanel Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Width="100" Height="40" Style="{StaticResource SaveButton}" Content="Clear" HorizontalAlignment="Center" Margin="0,0,10,0" Command="{Binding ClearButtonCommand}"/>
-                <Button Width="100" Height="40" Style="{StaticResource SaveButton}" Content="Save" HorizontalAlignment="Center" Command="{Binding SaveButtonCommand}"/>
+                <Button Width="100" Height="40" Style="{StaticResource SaveButton}" Content="Save" HorizontalAlignment="Center" Margin="0,0,10,0" Command="{Binding SaveButtonCommand}"/>
+                <Button Padding="10,0" Height="40" Style="{StaticResource SaveButton}" Content="Authorize" HorizontalAlignment="Center" Margin="0,0,10,0" Command="{Binding AuthorizeButtonCommand}"/>
+                <Button Padding="10,0" Height="40" Style="{StaticResource SaveButton}" Content="Clear Authorize" HorizontalAlignment="Center" Command="{Binding ClearAuthorizationButtonCommand}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -50,6 +50,9 @@
                         <Border Padding="10">
                             <CheckBox Content="Album Title" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
                         </Border>
+                        <Border Padding="10">
+                            <CheckBox Content="Song Name" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                        </Border>
                     </WrapPanel>
                 </Border>
             </StackPanel>

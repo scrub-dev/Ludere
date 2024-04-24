@@ -1,5 +1,6 @@
 ﻿using NowPlaying.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,10 +26,6 @@ namespace NowPlaying.Server
         private WebSocketServer?  WSServer;
         private volatile bool IsWSRunning;
 
-        private DateTime CurrentTokenValidUntil = new (DateTime.Now.AddMinutes(-1).Ticks);
-        private string? AccessToken;
-        
-
         public void SetStateOutputFunc(Action<string> UpdateStateOutputFunc)
         {
             _UpdateStateOutputFunc = UpdateStateOutputFunc;
@@ -44,33 +41,8 @@ namespace NowPlaying.Server
             server.Prefixes.Add(prefix);
             return server;
         }
-
-        private bool HandleAccessTokenRefresh()
-        {
-            if (DateTime.Now > CurrentTokenValidUntil || AccessToken == null)
-            {
-                string clientID = Settings.Default.SpotifyClientID;
-                string clientSecret = Settings.Default.SpotifyClientSecret;
-                (string? accessToken, DateTime? expiryTime, string? errorString) = CredentialManager.GetAccessToken(clientID, clientSecret);
-
-                if(accessToken == null)
-                {
-                    SetStateOutput(NowPlaying.Server.Server.ERROR(errorString!));
-                    return false;
-                }
-                else
-                {
-                    CurrentTokenValidUntil = (DateTime)expiryTime!;
-                    AccessToken = accessToken;
-                }
-            }
-            return true;
-        }
-
         public void Start()
         {
-            if (!HandleAccessTokenRefresh()) return;
-
             if (!IsServerRunning) 
             {
                 serverThread = new Thread(new ThreadStart(RunServerConnectionAsync))
@@ -106,7 +78,7 @@ namespace NowPlaying.Server
             if (IsServerRunning) return;
             string protocol = "http://";
             string host = "localhost";
-            int port = 5000;
+            int port = Settings.Default.SourcePort;
             Server = CreateServerListener($"{protocol}{host}:{port}/");
             Server.Start();
             IsServerRunning = true;
@@ -123,13 +95,24 @@ namespace NowPlaying.Server
             catch (Exception) { return; }
 
             Server.BeginGetContext(Context, null);
-
-            byte[] data = Encoding.UTF8.GetBytes(ResponseBuilder.DEFAULT_CLIENT_PAGE);
+            byte[] data = [];
             ctx.Response.ContentType = "text/html";
             ctx.Response.ContentEncoding = Encoding.UTF8;
-            ctx.Response.ContentLength64 = data.LongLength;
 
-            ctx.Response.OutputStream.WriteAsync(data, CancellationToken.None); 
+            if (ctx.Request.Url!.AbsolutePath == "/callback")
+            {
+                CredentialManager.HandleAuthorizationCallback([.. ctx.Request.Url!.Query.ToString().Split("&")]);
+                data = Encoding.UTF8.GetBytes(ResponseBuilder.CALLBACK_PAGE);
+                ctx.Response.ContentLength64 = data.LongLength;
+                ctx.Response.OutputStream.WriteAsync(data, CancellationToken.None);
+            }
+            else
+            {
+                data = Encoding.UTF8.GetBytes(ResponseBuilder.GenerateNowPlayingPage());
+                ctx.Response.ContentLength64 = data.LongLength;
+                ctx.Response.OutputStream.WriteAsync(data, CancellationToken.None);
+            }
+
             ctx.Response.OutputStream.Close();
         }
 
@@ -142,20 +125,22 @@ namespace NowPlaying.Server
             IsWSRunning = true;
             while (IsWSRunning)
             {
-                if(!HandleAccessTokenRefresh()) break;
-
+                JSONObjects.SpotifyNowPlaying? apiResult = new();
                 int? sessionCount = WSServer?.WebSocketServices.SessionCount;
                 if (sessionCount != null && sessionCount > 0) SetStateOutput(NowPlaying.Server.Server.CLIENTS(sessionCount));
                 else SetStateOutput(NowPlaying.Server.Server.RUNNING);
-                
-                WSServer?.WebSocketServices.Broadcast("HelloWorld");
+
+                if(Settings.Default.SpotifyAccessToken is not null) apiResult = CredentialManager.GetSpotifyNowPlaying();
+                else SetStateOutput(NowPlaying.Server.Server.CUSTOM("Running: Please Authorize"));
+
+                WSServer?.WebSocketServices.Broadcast($"<h1>{DateTime.Now}</h1>");
                 Thread.Sleep(Settings.Default.ServerRefreshInterval * 1000);
             }
             WSServer?.Stop();
         }
         private WebSocketServer CreateWebSocketServer()
         {
-            WebSocketServer wssv = new(5001);
+            WebSocketServer wssv = new(Settings.Default.SocketPort);
             wssv.AddWebSocketService("/", () => new WSBehavior());
             return wssv;
         }
