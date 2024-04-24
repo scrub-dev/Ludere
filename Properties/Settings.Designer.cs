@@ -46,7 +46,7 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5001")]
         public int SourcePort {
             get {
                 return ((int)(this["SourcePort"]));
@@ -58,7 +58,7 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1001")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5002")]
         public int SocketPort {
             get {
                 return ((int)(this["SocketPort"]));
@@ -89,6 +89,30 @@ namespace NowPlaying.Properties {
             }
             set {
                 this["SpotifyClientSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyAccessToken {
+            get {
+                return ((string)(this["SpotifyAccessToken"]));
+            }
+            set {
+                this["SpotifyAccessToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SpotifyRefreshToken {
+            get {
+                return ((string)(this["SpotifyRefreshToken"]));
+            }
+            set {
+                this["SpotifyRefreshToken"] = value;
             }
         }
     }
