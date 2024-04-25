@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NowPlaying.Views"
+             xmlns:vm="clr-namespace:NowPlaying.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:StyleSettingsViewModel/>
+    </UserControl.DataContext>
     <Grid Margin="50,30">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -39,19 +43,19 @@
                             </Style>
                         </WrapPanel.Resources>
                         <Border Padding="10">
-                            <CheckBox Content="Song Progression" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                            <CheckBox Content="Song Progression" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"  IsChecked="{Binding SongProgressionChecked, Mode=TwoWay}"/>
                         </Border>
                         <Border Padding="10">
-                            <CheckBox Content="Artwork" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                            <CheckBox Content="Artwork" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16" IsChecked="{Binding ArtworkChecked, Mode=TwoWay}"/>
                         </Border>
                         <Border Padding="10">
-                            <CheckBox Content="Artist" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                            <CheckBox Content="Artist" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16" IsChecked="{Binding ArtistChecked, Mode=TwoWay}"/>
                         </Border>
                         <Border Padding="10">
-                            <CheckBox Content="Album Title" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                            <CheckBox Content="Album Title" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16" IsChecked="{Binding AlbumChecked, Mode=TwoWay}"/>
                         </Border>
                         <Border Padding="10">
-                            <CheckBox Content="Song Name" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16"/>
+                            <CheckBox Content="Song Name" Foreground="White" FontFamily="/Font/#Poppins" FontWeight="Light" FontSize="16" IsChecked="{Binding SongNameChecked, Mode=TwoWay}"/>
                         </Border>
                     </WrapPanel>
                 </Border>
