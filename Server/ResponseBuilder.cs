@@ -1,4 +1,5 @@
 ﻿using NowPlaying.Properties;
+using NowPlaying.Server.JSONObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,5 +56,18 @@ namespace NowPlaying.Server
   </body>
 </html>
 """;
+
+        public static string WebSocketResponse(SpotifyNowPlaying spnpObj)
+        {
+            return WrapDiv("");
+        }
+
+
+        private static string WrapDiv(string toBeWrapped, string style = "")
+        {
+            return $"<div style=\"{style}\">" + toBeWrapped + "</div>";
+        }
+
+
     }
 }
