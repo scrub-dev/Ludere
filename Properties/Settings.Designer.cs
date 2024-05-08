@@ -154,13 +154,13 @@ namespace NowPlaying.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomStyle {
             get {
-                return ((string)(this["Setting"]));
+                return ((bool)(this["UseCustomStyle"]));
             }
             set {
-                this["Setting"] = value;
+                this["UseCustomStyle"] = value;
             }
         }
     }

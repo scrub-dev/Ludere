@@ -57,17 +57,13 @@ namespace NowPlaying.Server
 </html>
 """;
 
-        public static string WebSocketResponse(SpotifyNowPlaying spnpObj)
+        public static string WebSocketResponse(SpotifyNowPlaying o)
         {
             return WrapDiv("");
         }
-
-
         private static string WrapDiv(string toBeWrapped, string style = "")
         {
             return $"<div style=\"{style}\">" + toBeWrapped + "</div>";
         }
-
-
     }
 }
