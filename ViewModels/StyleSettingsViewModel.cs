@@ -18,6 +18,8 @@ namespace NowPlaying.ViewModels
         public bool ArtistChecked { get => FeatureHandler.IsFeatureEnabled(FeatureHandler.Feature.ARTIST_NAME); set { FeatureHandler.ToggleFeature(FeatureHandler.Feature.ARTIST_NAME, value); OnPropertyChanged(); } }
         public bool AlbumChecked { get => FeatureHandler.IsFeatureEnabled(FeatureHandler.Feature.ALBUM_NAME); set { FeatureHandler.ToggleFeature(FeatureHandler.Feature.ALBUM_NAME, value); OnPropertyChanged(); } }
         public bool SongNameChecked { get => FeatureHandler.IsFeatureEnabled(FeatureHandler.Feature.SONG_NAME); set { FeatureHandler.ToggleFeature(FeatureHandler.Feature.SONG_NAME, value); OnPropertyChanged(); } }
+        public bool NotPlayingChecked { get => FeatureHandler.IsFeatureEnabled(FeatureHandler.Feature.NOT_PLAYING_SHOWN); set { FeatureHandler.ToggleFeature(FeatureHandler.Feature.NOT_PLAYING_SHOWN, value); OnPropertyChanged(); } }
+
 
         public int OutputHeight { get => Settings.Default.DisplayHeight ; set { Settings.Default.DisplayHeight = value; Settings.Default.Save(); OnPropertyChanged(); } }
         public int OutputWidth { get => Settings.Default.DisplayWidth; set { Settings.Default.DisplayWidth = value; Settings.Default.Save();  OnPropertyChanged(); } }

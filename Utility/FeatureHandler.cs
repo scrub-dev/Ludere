@@ -16,7 +16,8 @@ namespace NowPlaying.Utility
             ARTIST_NAME = 1 << 2,
             ALBUM_NAME = 1 << 3,
             ARTWORK = 1 << 4,
-            SONG_PROGRESSION = 1 << 5
+            SONG_PROGRESSION = 1 << 5,
+            NOT_PLAYING_SHOWN = 1 << 6,
         }
         public static void ToggleFeature(Feature f, bool val)
         {
